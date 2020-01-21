@@ -1,36 +1,13 @@
-// helloVs.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include <functional>
 #include <iomanip>
 #include <string>
+#include "stdafx.h"
 
 
 using namespace std;
 
-void startCalculator();
 
-
-void testLambda();
-void testArray();
-void showSize();
-void testCharArr();
-void testString();
-void testAddr();
-void testPoint();
-void testRef();
-
-
-
-int main() {
-
-
-    startCalculator();
-
-
-
-}
 
 
 void testRef() {
@@ -65,7 +42,7 @@ void testRef() {
 void testPoint() {
 
     int foo = 10;
-    int *ip;
+    int* ip;
     ip = &foo;
 
     cout << "Value of var variable: ";
@@ -127,8 +104,8 @@ void testCharArr() {
 
 void testArray() {
 
-    int arr1[5] = {1,2,3,4,5};
-    int arr2[] = {1,2,3,4,5,6};
+    int arr1[5] = { 1,2,3,4,5 };
+    int arr2[] = { 1,2,3,4,5,6 };
 
     for (int i = 0; i < 5; i++) {
         arr1[i] = i * 10 + i;
@@ -232,16 +209,48 @@ void showSize() {
 }
 
 
+#include <cstring>
+
+void changeArray(char* arr) {
+    char data[] = "aaaaaa";
+    strcpy_s(arr, 7, data);
+    return;
+}
+
+void tmp1() {
+    char target0[] = "hehehe";
+    cout << target0 << endl;
+
+    changeArray(target0);
+    cout << target0 << endl;
+}
+
+
+void changeStr(string &s) {
+    s = "bbb";
+}
+
+
+void tmp2() {
+    string s1 = "aaa";
+    cout << s1 << endl;
+
+    string* sp;
+    sp = &s1;
+
+    changeStr(*sp);
+    cout << s1 << endl;
+
+}
 
 
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+void tmpTest1() {
+    tmp1();
+}
+
+
+
+
+
