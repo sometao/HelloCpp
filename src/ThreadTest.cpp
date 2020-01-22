@@ -20,8 +20,6 @@ void func1(string name) {
 	cout << "[" << id0 << "]"<< "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! finish." << endl;
 }
 
-
-
 void func2(char* data, int len) {
 
 	auto id0 = this_thread::get_id();
