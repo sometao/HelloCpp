@@ -17,8 +17,7 @@ void testRef();
 void testBook();
 void testStruct();
 int socketLaunch(int a, char* b[]);
-int chatServerLaunch(int a, char* b[]);
-
+void threadTest();
 
 void tmpTest1();
 
@@ -26,12 +25,14 @@ int main(int argc, char* argv[]) {
 
     
 
-    cout << "welcome to Cpp." << endl;
-    cout << "argc=" << argc << endl;
-    for (int i = 0; i < argc; i++) {
-        cout << "argv[" << i << "] = " << argv[i] << endl;
-    }
-    chatServerLaunch(argc, argv);
+    //cout << "welcome to Cpp." << endl;
+    //cout << "argc=" << argc << endl;
+    //for (int i = 0; i < argc; i++) {
+    //    cout << "argv[" << i << "] = " << argv[i] << endl;
+    //}
+    //chatServerLaunch(argc, argv);
+
+    threadTest();
 
     //tmpTest1();
 }
