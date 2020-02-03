@@ -25,13 +25,12 @@
     <ClCompile Include="src\stdafx.cpp" />
     <ClCompile Include="src\TestClass.cpp" />
     <ClCompile Include="src\testStruct.cpp" />
+    <ClCompile Include="src\ThreadTest.cpp" />
     <ClCompile Include="src\TmpTest1.cpp" />
-    <ClCompile Include="ThreadTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\stdafx.h" />
     <ClInclude Include="src\targetver.h" />
-    <ClInclude Include="src\test1.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -86,6 +85,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);./src;.</IncludePath>
+    <SourcePath>$(VC_SourcePath);./src</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>

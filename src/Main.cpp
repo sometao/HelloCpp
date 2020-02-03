@@ -17,9 +17,14 @@ void testRef();
 void testBook();
 void testStruct();
 int socketLaunch(int a, char* b[]);
-void threadTest();
-
 void tmpTest1();
+
+
+namespace threadTest {
+    void threadTest();
+}
+
+
 
 int main(int argc, char* argv[]) {
 
@@ -32,7 +37,7 @@ int main(int argc, char* argv[]) {
     //}
     //chatServerLaunch(argc, argv);
 
-    threadTest();
+    threadTest::threadTest();
 
     //tmpTest1();
 }

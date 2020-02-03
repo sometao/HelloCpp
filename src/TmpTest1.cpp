@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <string>
 #include "stdafx.h"
-
+#include <typeinfo>
 
 using namespace std;
 
@@ -243,11 +243,135 @@ void tmp2() {
 
 }
 
+void tmp3() {
+    int value;
+    cin >> value;
+    cout << value << endl;
+}
+
+
+void tmp4A(int& n) {
+
+    n += 1;
+	cout << typeid(n).name() << endl;
+	cout << n << endl;
+    cout << "---------------------" << endl;
+	cout << typeid(&n).name() << endl;
+	cout << &n << endl;
+
+}
+
+void tmp4B(int* n) {
+
+    *n += 1;
+	cout << typeid(n).name() << endl;
+	cout << n << endl;
+    cout << "---------------------" << endl;
+	cout << typeid(&n).name() << endl;
+	cout << &n << endl;
+}
+
+
+void tmp4C(int n) {
+
+    int* p;
+    p = &n;
+    *p += 1;
+    
+	cout << typeid(n).name() << endl;
+	cout << n << endl;
+    cout << "---------------------" << endl;
+	cout << typeid(&n).name() << endl;
+	cout << &n << endl;
+}
+
+void tmp4() {
+    int c = 100;
+    cout << "&c=" << &c << endl;
+
+    cout << "\n" << endl;
+
+    cout << "----  tmp4A ----------------." << endl;
+    cout << "before c=" << c << endl;
+    tmp4A(c);
+    cout << "after c=" << c << endl;
+    cout << "----  tmp4A DONE." << endl;
+
+    cout << "\n\n";
+    
+    cout << "----  tmp4B ---------------" << endl;
+    cout << "before c=" << c << endl;
+    tmp4B(&c);
+    cout << "after c=" << c << endl;
+    cout << "----  tmp4B DONE." << endl;
+
+    cout << "\n\n";
+
+    
+    cout << "----  tmp4C -----------" << endl;
+    cout << "before c=" << c << endl;
+    tmp4C(c);
+    cout << "after c=" << c << endl;
+
+
+
+}
+
+
+void tmp5() {
+    int i = 5, & r1 = i;  double d = 9.9, & r2 = d;
+    r2 = 3.1415926;
+    r2 = r1;
+    i = r2;
+    r1 = d;
+    cout << i << endl;
+    cout << r1 << endl;
+    cout << d << endl;
+    cout << r2 << endl;
+
+}
+
+void tmp6() {
+    int i1 = 10;
+    int& r1 = i1;
+    const int& r2 = i1;
+    
+    const int i2 = 100;
+    //int& r2 = i2;
+    const int r3 = i2;
+
+    const int* p1;
+    int* p2;
+    p1 = &i1;
+    //p2 = &i2;
+    
+
+    //*p1 = 3;
+    //*p2 = 3;
+    p1 = &i2;
+
+
+    int* const p3 = &i1;
+    *p3 = i2;
+    //p3 = &i2;
+
+
+}
+
+
+void tmp7() {
+    int i = 0;
+    //double* op = &i;
+    //double* ip1 = i;
+    double* ip2 = 0;
+    int* p = &i;
+}
+
 
 
 
 void tmpTest1() {
-    tmp1();
+    tmp5();
 }
 
 
