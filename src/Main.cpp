@@ -37,9 +37,9 @@ int main(int argc, char* argv[]) {
     //}
     //chatServerLaunch(argc, argv);
 
-    threadTest::threadTest();
+    //threadTest::threadTest();
 
-    //tmpTest1();
+    tmpTest1();
 }
 
 
