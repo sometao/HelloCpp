@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include <typeinfo>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -324,8 +325,8 @@ namespace
 		int i = 5, & r1 = i;  double d = 9.9, & r2 = d;
 		r2 = 3.1415926;
 		r2 = r1;
-		i = r2;
-		r1 = d;
+		i = static_cast<int>(r2);
+		r1 = static_cast<int>(d);
 		cout << i << endl;
 		cout << r1 << endl;
 		cout << d << endl;
@@ -343,7 +344,7 @@ namespace
 		const int r3 = i2;
 
 		const int* p1;
-		int* p2;
+		//int* p2;
 		p1 = &i1;
 		//p2 = &i2;
 
@@ -579,15 +580,19 @@ namespace
 		cout << "c.member.member: [" << c.member.member << "]" << endl;
 		cout << "d.member.member: [" << d.member.member << "]" << endl;
 
+	}
 
+	void tmp15() {
 
-
+		for (auto i : vector<int>{ 1,2,3,4,5 }) {
+			cout << "i:" << i << endl;
+		}
 	}
 
 }
 
 void tmpTest1() {
-	tmp14();
+	tmp15();
 }
 
 

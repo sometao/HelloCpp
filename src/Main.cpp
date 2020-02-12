@@ -1,45 +1,19 @@
 #include "stdafx.h"
 #include <iostream>
+#include "EasyWay.h"
 
 using namespace std;
 
-void startCalculator();
-void testLambda();
-void testArray();
-void showSize();
-void testCharArr();
-void testString();
-void testAddr();
-void testPoint();
-void testRef();
 
-
-void testBook();
-void testStruct();
-int socketLaunch(int a, char* b[]);
-void tmpTest1();
-
-
-namespace threadTest {
-    void threadTest();
-}
-
-
+extern void threadTest();
+extern void tmpTest2();
 
 int main(int argc, char* argv[]) {
 
-    
 
-    //cout << "welcome to Cpp." << endl;
-    //cout << "argc=" << argc << endl;
-    //for (int i = 0; i < argc; i++) {
-    //    cout << "argv[" << i << "] = " << argv[i] << endl;
-    //}
-    //chatServerLaunch(argc, argv);
-
-    //threadTest::threadTest();
-
-    tmpTest1();
+	threadTest();
+	//tmpTest2();
+	//EasyWayTester::test();
 }
 
 
