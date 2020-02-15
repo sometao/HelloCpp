@@ -478,15 +478,68 @@ namespace
 	}
 
 
+	void func11a(int id, std::mutex& m) {
+
+		while (true)
+		{
+			auto v = EasyWay::range(1, 6);
+			{
+				cout << "[" << id << "] func11 try lock ----------------" << endl;
+				unique_lock<std::mutex> lk{ m };
+				cout << "[" << id << "] func11 go working ----------------" << endl;
+				
+				for (auto i : v) {
+					cout << "[" << id << "] func11 working ----------------" << endl;
+					EasyWay::sleep(1500);
+				}
+			}
+			EasyWay::sleep(100);
+
+		}
+	}
+
+	void func11b(int id, std::mutex& m) {
+		while (true)
+		{
+			cout << "---------------- [" << id << "] func11 try lock" << endl;
+			m.lock();
+			cout << "---------------- [" << id << "] func11 go working" << endl;
+			for (auto i : EasyWay::range(1, 6)) {
+				cout << "---------------- [" << id << "] func11 working" << endl;
+				EasyWay::sleep(2000);
+			};
+			m.unlock();
+			EasyWay::sleep(800);
+		}
+	}
+
+	void test11() {
+
+		std::mutex m{};
+
+		thread t1{func11a, 101, ref(m)};
+		thread t2{func11a, 102, ref(m)};
+
+		thread t3{func11b, 301, ref(m)};
+		thread t4{func11b, 302, ref(m)};
+
+		t1.join();
+		t2.join();
+		t3.join();
+		t4.join();
+
+	}
 
 
 }
 
 
+
+
 void threadTest() {
 	cout << "hello, thread." << endl;
 
-	test10();
+	test11();
 }
 
 

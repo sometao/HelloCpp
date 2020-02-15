@@ -11,8 +11,8 @@ extern void tmpTest2();
 int main(int argc, char* argv[]) {
 
 
-	threadTest();
-	//tmpTest2();
+	//threadTest();
+	tmpTest2();
 	//EasyWayTester::test();
 }
 
