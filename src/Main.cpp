@@ -7,13 +7,14 @@ using namespace std;
 
 extern void threadTest();
 extern void tmpTest2();
+extern void tmpTest3();
 
 int main(int argc, char* argv[]) {
 
-
 	//threadTest();
-	tmpTest2();
+	//tmpTest2();
 	//EasyWayTester::test();
+	tmpTest3();
 }
 
 

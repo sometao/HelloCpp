@@ -28,6 +28,7 @@
     <ClCompile Include="src\ThreadTest.cpp" />
     <ClCompile Include="src\TmpTest1.cpp" />
     <ClCompile Include="src\TmpTest2.cpp" />
+    <ClCompile Include="src\TmpTest3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\EasyWay.h" />
