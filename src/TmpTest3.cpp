@@ -437,6 +437,38 @@ void tmp15() {
 
 }
 
+void tmp16() {
+  const string str1{"1234567"};
+
+  char ch1[] = { 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83};
+  //如何初始化全A数组
+
+  str1.copy(ch1, str1.length());
+  ch1[str1.length()] = '\0';
+  for (auto c : ch1) {
+    cout << "[" << c << "]" << endl;
+  }
+
+  cout << " ----------------" << endl;
+  cout << "str1: [" << str1 << "]" << endl;
+  cout << "ch1:  [" << ch1 << "]" << endl;
+
+
+  char ch2[100]{};
+  strcpy_s(ch2, str1.c_str());
+  cout << " ----------------" << endl;
+  cout << "str1: [" << str1 << "]" << endl;
+  cout << "ch2:  [" << ch2 << "]" << endl;
+
+  const char *ch3 = str1.c_str();
+
+  cout << " ----------------" << endl;
+  cout << "str1: [" << str1 << "]" << endl;
+  cout << "ch3:  [" << ch3 << "]" << endl;
+
+
+}
+
 
 
 
@@ -444,5 +476,5 @@ void tmp15() {
 
 void tmpTest3() {
   using namespace tmp_test3;
-  tmp15();
+  tmp16();
 }
