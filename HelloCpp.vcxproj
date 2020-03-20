@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\calculator.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\othersCacl.cpp" />
     <ClCompile Include="src\SocketTest.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
     <ClCompile Include="src\TestClass.cpp" />
@@ -29,6 +30,7 @@
     <ClCompile Include="src\TmpTest1.cpp" />
     <ClCompile Include="src\TmpTest2.cpp" />
     <ClCompile Include="src\TmpTest3.cpp" />
+    <ClCompile Include="src\TmpTest4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\EasyWay.h" />

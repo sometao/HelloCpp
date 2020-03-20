@@ -5,16 +5,22 @@
 using namespace std;
 
 
+extern void startCalculator();
 extern void threadTest();
 extern void tmpTest2();
 extern void tmpTest3();
+extern void tmpTest4();
+extern int DQL_main();
 
 int main(int argc, char* argv[]) {
 
+
+	//DQL_main();
+	//startCalculator();
 	//threadTest();
 	//tmpTest2();
 	//EasyWayTester::test();
-	tmpTest3();
+	tmpTest4();
 }
 
 

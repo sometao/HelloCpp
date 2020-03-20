@@ -124,6 +124,7 @@ void func03a1(C01a c) { cout << "func03b, c.data=" << c.data << endl; }
 void func03a2(C01a& c) { cout << "func03b, c.data=" << c.data << endl; }
 
 void func03b() {
+
   C01a x{"Hello"};
   cout << "1 ------------" << endl;
   func03a1(x);
@@ -472,9 +473,22 @@ void tmp16() {
 
 
 
+void tmp17() {
+  cout << "version:"<< _MSC_VER << endl;
+}
+
+void tmp18() {
+  //string s0{};
+  //string s1{"My","Age", "is" };
+  //string s2 = "My " + "name " + "is " + "haaha";
+  //string s3 = s0 + "My " + "age " + "is" + 15;
+  cout << "Hello" << endl;
+}
+
+
 }  // namespace tmp_test3
 
 void tmpTest3() {
   using namespace tmp_test3;
-  tmp16();
+  tmp17();
 }
