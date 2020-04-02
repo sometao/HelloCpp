@@ -1,9 +1,11 @@
 
+#include <atomic>
 #include <fstream>
 #include <iostream>
 #include <list>
 #include <memory>
 #include <unordered_map>
+#include <vector>
 
 #include "EasyWay.h"
 #include "stdafx.h"
@@ -680,9 +682,113 @@ void tmp06c() {
   cout << "done." << endl;
 }
 
+void tmp07() {
+  std::atomic<bool> isReady{false};
+
+  auto a = isReady.load();
+  cout << "a:" << a << endl;
+  isReady.store(true);
+  a = isReady.load();
+  cout << "a:" << a << endl;
+}
+
+void tmp08() {
+  uint64_t a1 = 10;
+  uint64_t a2 = 15;
+  auto r1 = a2 - a1;
+  auto r2 = a1 - a2;
+
+  cout << "r1: " << r1 << endl;
+  cout << "r2: " << r2 << endl;
+}
+
+void tmp09() {
+  atomic<uint64_t> c{3};
+
+  uint64_t r = 0;
+  cout << "c: " << c.load() << endl;
+  r = c.fetch_add(10, std::memory_order_relaxed);
+  cout << "r: " << r << ",  c: " << c.load() << endl;
+  r = c.fetch_add(200, std::memory_order_relaxed);
+  cout << "r: " << r << ",  c: " << c.load() << endl;
+  r = c.fetch_add(3000, std::memory_order_relaxed);
+  cout << "r: " << r << ",  c: " << c.load() << endl;
+}
+
+void tmp10() {
+  using std::vector;
+  int n;
+  int m;
+  int q;
+  cin >> n;
+  cin >> m;
+  cin >> q;
+
+  vector<vector<int>> arr(n, std::vector<int>(m));
+
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      arr[i][j] = i + j;
+    }
+  }
+
+  cout << "n:" << n << endl;
+  cout << "m:" << m << endl;
+  cout << "q:" << q << endl;
+
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      cout << arr[i][j] << " ";
+    }
+    cout << endl;
+  }
+}
+
+void tmp11() {
+  std::list<std::unique_ptr<string>> ls{};
+
+  auto a1 = std::make_unique<string>("Hello");
+  auto a2 = std::make_unique<string>("World");
+  cout << "====== 1 ======" << endl;
+  cout << "a1:" << a1->c_str() << endl;
+  cout << "a2:" << a2->c_str() << endl;
+
+  ls.push_back(std::move(a1));
+  ls.push_back(std::move(a2));
+  cout << "====== 2 ======" << endl;
+  cout << "a1:" << (a1 == nullptr) << endl;
+  cout << "a2:" << (a2 == nullptr) << endl;
+
+  auto b1 = std::move(ls.front());
+  ls.pop_front();
+  auto b2 = std::move(ls.front());
+  ls.pop_front();
+  cout << "====== 3 ======" << endl;
+  cout << "b1:" << (b1 == nullptr) << endl;
+  cout << "b2:" << (b2 == nullptr) << endl;
+  cout << "b1:" << b1->c_str() << endl;
+  cout << "b2:" << b2->c_str() << endl;
+
+  ls.push_back(nullptr);
+  std::unique_ptr<string> c0{};
+  ls.push_back(std::move(c0));
+  auto c1 = std::move(ls.front());
+  ls.pop_front();
+  auto c2 = std::move(ls.front());
+  ls.pop_front();
+  cout << "====== 4 ======" << endl;
+  cout << "c1:" << (c1 == nullptr) << endl;
+  cout << "c2:" << (c2 == nullptr) << endl;
+
+
+
+
+
+}
+
 }  // namespace tmp_test4
 
 void tmpTest4() {
   using namespace tmp_test4;
-  tmp06c();
+  tmp11();
 }
