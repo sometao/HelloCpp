@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <vector>
 #include <chrono>
+#include "seeker/common.h"
 
 
 namespace tmp_test7 {
@@ -106,12 +107,7 @@ void tmp01() {
 
 };
 
-int64_t currentTime() {
-  using namespace std::chrono;
-  auto time_now = system_clock::now();
-  auto durationIn = duration_cast<milliseconds>(time_now.time_since_epoch());
-  return durationIn.count();
-};
+
 
 class TMP2A{
 public :
@@ -139,7 +135,7 @@ public :
 template<typename T>
 void foo(T t) {
   cout << "1. -----" << endl;
-  static T x{"Inner--" + std::to_string(currentTime())};
+  static T x{"Inner--" + std::to_string(seeker::Time::currentTime())};
   cout << "2. -----" << endl;
   t.say();
   cout << "3. -----" << endl;
