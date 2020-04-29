@@ -2,13 +2,13 @@
 #include <functional>
 #include <iostream>
 #include <list>
+#include <map>
 #include <queue>
 #include <random>
 #include <sstream>
 #include <string>
 #include <typeinfo>
 #include <vector>
-#include <map>
 
 #include "EasyWay.h"
 #include "stdafx.h"
@@ -124,7 +124,6 @@ void func03a1(C01a c) { cout << "func03b, c.data=" << c.data << endl; }
 void func03a2(C01a& c) { cout << "func03b, c.data=" << c.data << endl; }
 
 void func03b() {
-
   C01a x{"Hello"};
   cout << "1 ------------" << endl;
   func03a1(x);
@@ -336,51 +335,46 @@ void tmp12() {
   cout << "BB: value=[" << myMap[target] << "]" << endl;
   cout << "BB: value=[" << myMap.at(target) << "]" << endl;
   cout << "--" << endl;
-  
+
   cout << "CC: value=[" << (myMap.at("CC") == "") << "]" << endl;
   cout << "CC: value=[" << myMap["CC"] << "]" << endl;
   cout << "--" << endl;
-
 }
 
 void tmp13() {
   std::map<string, string> myMap{
-    {"A", "1"},
-    {"C", "3"},
-    {"D", "4"},
-    {"B", "2"}
-  };
+      {"A", "1"}, {"C", "3"}, {"D", "4"}, {"B", "2"}};
 
   for (auto p : myMap) {
     cout << "k=" << p.first << ", value=" << p.second << endl;
   }
-
 
   string target = "A";
   auto it = myMap.find(target);
   if (it != myMap.end()) {
     cout << "find[" << target << "], value=" << it->second << endl;
   } else {
-    cout << "Not find target[" << target << "] " << endl;; 
+    cout << "Not find target[" << target << "] " << endl;
+    ;
   }
-  
+
   target = "B";
   it = myMap.find(target);
   if (it != myMap.end()) {
     cout << "find[" << target << "], value=" << it->second << endl;
   } else {
-    cout << "Not find target[" << target << "] " << endl;;
+    cout << "Not find target[" << target << "] " << endl;
+    ;
   }
-    
+
   target = "X";
   it = myMap.find(target);
   if (it != myMap.end()) {
     cout << "find[" << target << "], value=" << it->second << endl;
   } else {
-    cout << "Not find target[" << target << "] " << endl;;
+    cout << "Not find target[" << target << "] " << endl;
+    ;
   }
-
-
 }
 
 void tmp14() {
@@ -399,31 +393,25 @@ void tmp14() {
   myMap.insert({"BB", "d"});
 
   for (auto p : myMap) {
-    cout << "k=" <<p.first << ", value=" << p.second << endl;
+    cout << "k=" << p.first << ", value=" << p.second << endl;
   }
 
   cout << "-----------------------------------" << endl;
 
-  myMap["AA"] =  "11";
-  myMap["BB"] =  "22";
+  myMap["AA"] = "11";
+  myMap["BB"] = "22";
 
   for (auto p : myMap) {
     cout << "k=" << p.first << ", value=" << p.second << endl;
   }
-
-
 }
 
 void tmp15() {
   std::map<string, string> myMap{
-    {"A", "1"},
-    {"C", "3"},
-    {"D", "4"},
-    {"B", "2"}
-  };
+      {"A", "1"}, {"C", "3"}, {"D", "4"}, {"B", "2"}};
 
   for (auto p : myMap) {
-    cout << "k=" <<p.first << ", value=" << p.second << endl;
+    cout << "k=" << p.first << ", value=" << p.second << endl;
   }
   cout << " ------------------------- " << endl;
   myMap.erase("A");
@@ -435,14 +423,13 @@ void tmp15() {
     cout << "k=" << p.first << ", value=" << p.second << endl;
   }
   cout << " ------------------------- " << endl;
-
 }
 
 void tmp16() {
   const string str1{"1234567"};
 
-  char ch1[] = { 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83};
-  //ÈçºÎ³õÊ¼»¯È«AÊý×é
+  char ch1[] = {83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83};
+  //ï¿½ï¿½Î³ï¿½Ê¼ï¿½ï¿½È«Aï¿½ï¿½ï¿½ï¿½
 
   str1.copy(ch1, str1.length());
   ch1[str1.length()] = '\0';
@@ -454,37 +441,28 @@ void tmp16() {
   cout << "str1: [" << str1 << "]" << endl;
   cout << "ch1:  [" << ch1 << "]" << endl;
 
-
   char ch2[100]{};
   strcpy_s(ch2, str1.c_str());
   cout << " ----------------" << endl;
   cout << "str1: [" << str1 << "]" << endl;
   cout << "ch2:  [" << ch2 << "]" << endl;
 
-  const char *ch3 = str1.c_str();
+  const char* ch3 = str1.c_str();
 
   cout << " ----------------" << endl;
   cout << "str1: [" << str1 << "]" << endl;
   cout << "ch3:  [" << ch3 << "]" << endl;
-
-
 }
 
-
-
-
-void tmp17() {
-  cout << "version:"<< _MSC_VER << endl;
-}
+void tmp17() { cout << "version:" << _MSC_VER << endl; }
 
 void tmp18() {
-  //string s0{};
-  //string s1{"My","Age", "is" };
-  //string s2 = "My " + "name " + "is " + "haaha";
-  //string s3 = s0 + "My " + "age " + "is" + 15;
+  // string s0{};
+  // string s1{"My","Age", "is" };
+  // string s2 = "My " + "name " + "is " + "haaha";
+  // string s3 = s0 + "My " + "age " + "is" + 15;
   cout << "Hello" << endl;
 }
-
 
 }  // namespace tmp_test3
 

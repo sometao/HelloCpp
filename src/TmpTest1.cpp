@@ -1,601 +1,539 @@
-#include <iostream>
 #include <functional>
 #include <iomanip>
-#include <string>
-#include "stdafx.h"
-#include <typeinfo>
+#include <iostream>
 #include <sstream>
+#include <string>
+#include <typeinfo>
 #include <vector>
+
+#include "stdafx.h"
 
 using namespace std;
 
-
-namespace
-{
-
-	void testRef() {
-
-		// ÉùÃ÷¼òµ¥µÄ±äÁ¿
-		int    i;
-		double d;
-
-		// ÉùÃ÷ÒýÓÃ±äÁ¿
-		int& r = i;
-		double& s = d;
-
-		i = 5;
-		cout << "Value of i : " << i << endl;
-		cout << "Value of i reference : " << r << endl;
-
-		i += 1;
-		cout << "Value of i : " << i << endl;
-		cout << "Value of i reference : " << r << endl;
-
-
-		d = 11.7;
-		cout << "Value of d : " << d << endl;
-		cout << "Value of d reference : " << s << endl;
-
-		s += 1;
-		cout << "Value of d : " << d << endl;
-		cout << "Value of d reference : " << s << endl;
-
-	}
-
-	void testPoint() {
-
-		int foo = 10;
-		int* ip;
-		ip = &foo;
-
-		cout << "Value of var variable: ";
-		cout << foo << endl;
-
-		// Êä³öÔÚÖ¸Õë±äÁ¿ÖÐ´æ´¢µÄµØÖ·
-		cout << "Address stored in ip variable: ";
-		cout << ip << endl;
-
-		// ·ÃÎÊÖ¸ÕëÖÐµØÖ·µÄÖµ
-		cout << "Value of *ip variable: ";
-		cout << *ip << endl;
-
-
-
-	}
-
-	void testAddr() {
-
-		int var1;
-		char var2[10];
-		cout << "var1 address:" << &var1 << endl;
-		cout << "var2 address:" << &var2 << endl;
-
-
-	}
-
-	void testString() {
-		string str1 = "Hello";
-		string str2 = "World";
-		string str3;
-		int  len;
-
-		// ¸´ÖÆ str1 µ½ str3
-		str3 = str1;
-		cout << "str3 : " << str3 << endl;
-
-		// Á¬½Ó str1 ºÍ str2
-		str3 = str1 + str2;
-		cout << "str1 + str2 : " << str3 << endl;
-
-		// Á¬½Óºó£¬str3 µÄ×Ü³¤¶È
-		len = str3.size();
-		cout << "str3.size() :  " << len << endl;
-
-	}
-
-	void testCharArr() {
-
-
-		char greeting1[6] = { 'H', 'e', 'l', 'l', 'o', '\0' };
-		char greeting2[] = "World";
-
-		cout << "Greeting message: " << endl;
-		cout << greeting1 << endl;
-		cout << greeting2 << endl;
-
-	}
-
-	void testArray() {
-
-		int arr1[5] = { 1,2,3,4,5 };
-		int arr2[] = { 1,2,3,4,5,6 };
-
-		for (int i = 0; i < 5; i++) {
-			arr1[i] = i * 10 + i;
-		}
-
-		cout << "Element" << setw(13) << "Value" << endl;
-
-		for (int i = 0; i < 5; i++) {
-			cout << setw(7) << i << setw(13) << arr1[i] << endl;
-		}
-
-		return;
-
-
-	}
-
-
-	void testLambda() {
-		auto func1 = [](int y) -> int { return y + 10; };
-		function<int(int)> func2 = [](int y) -> int { return y - 10; };
-		int a = 100;
-		int b = func1(a);
-		int c = func2(a);
-
-		cout << "a:" << a << "  b:" << b << endl;
-		cout << "a:" << a << "  c:" << c << endl;
-		return;
-	}
-
-	void showSize() {
-
-
-		cout << "\t×î´óÖµ£º" << (numeric_limits<bool>::max)();
-		cout << "\t\t×îÐ¡Öµ£º" << (numeric_limits<bool>::min)() << endl;
-
-		cout << "char: \t\t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(char);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<char>::max)();
-		cout << "\t\t×îÐ¡Öµ£º" << (numeric_limits<char>::min)() << endl;
-
-		cout << "signed char: \t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(signed char);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<signed char>::max)();
-		cout << "\t\t×îÐ¡Öµ£º" << (numeric_limits<signed char>::min)() << endl;
-
-		cout << "unsigned char: \t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(unsigned char);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<unsigned char>::max)();
-		cout << "\t\t×îÐ¡Öµ£º" << (numeric_limits<unsigned char>::min)() << endl;
-
-		cout << "wchar_t: \t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(wchar_t);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<wchar_t>::max)();
-		cout << "\t\t×îÐ¡Öµ£º" << (numeric_limits<wchar_t>::min)() << endl;
-
-		cout << "short: \t\t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(short);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<short>::max)();
-		cout << "\t\t×îÐ¡Öµ£º" << (numeric_limits<short>::min)() << endl;
-
-		cout << "int: \t\t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(int);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<int>::max)();
-		cout << "\t×îÐ¡Öµ£º" << (numeric_limits<int>::min)() << endl;
-
-		cout << "long int: \t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(long int);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<long int>::max)();
-		cout << "\t×îÐ¡Öµ£º" << (numeric_limits<long int>::min)() << endl;
-
-		cout << "unsigned: \t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(unsigned);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<unsigned>::max)();
-		cout << "\t×îÐ¡Öµ£º" << (numeric_limits<unsigned>::min)() << endl;
-
-		cout << "long: \t\t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(long);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<long>::max)();
-		cout << "\t×îÐ¡Öµ£º" << (numeric_limits<long>::min)() << endl;
-
-		cout << "long long: \t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(long long);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<long long>::max)();
-		cout << "\t×îÐ¡Öµ£º" << (numeric_limits<long long>::min)() << endl;
-
-		cout << "unsigned long: \t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(unsigned long);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<unsigned long>::max)();
-		cout << "\t×îÐ¡Öµ£º" << (numeric_limits<unsigned long>::min)() << endl;
-
-		cout << "double: \t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(double);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<double>::max)();
-		cout << "\t×îÐ¡Öµ£º" << (numeric_limits<double>::min)() << endl;
-
-		cout << "long double: \t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(long double);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<long double>::max)();
-		cout << "\t×îÐ¡Öµ£º" << (numeric_limits<long double>::min)() << endl;
-
-		cout << "float: \t\t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(float);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<float>::max)();
-		cout << "\t×îÐ¡Öµ£º" << (numeric_limits<float>::min)() << endl;
-
-		cout << "size_t: \t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(size_t);
-		cout << "\t×î´óÖµ£º" << (numeric_limits<size_t>::max)();
-		cout << "\t×îÐ¡Öµ£º" << (numeric_limits<size_t>::min)() << endl;
-
-		cout << "string: \t" << "ËùÕ¼×Ö½ÚÊý£º" << sizeof(string) << endl;
-		// << "\t×î´óÖµ£º" << (numeric_limits<string>::max)() << "\t×îÐ¡Öµ£º" << (numeric_limits<string>::min)() << endl;  
-
-		cout << "type: \t\t" << "************size**************" << endl;
-		return;
-	}
-
+namespace {
+
+void testRef() {
+  // ï¿½ï¿½ï¿½ï¿½ï¿½òµ¥µÄ±ï¿½ï¿½ï¿½
+  int i;
+  double d;
+
+  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½
+  int& r = i;
+  double& s = d;
+
+  i = 5;
+  cout << "Value of i : " << i << endl;
+  cout << "Value of i reference : " << r << endl;
+
+  i += 1;
+  cout << "Value of i : " << i << endl;
+  cout << "Value of i reference : " << r << endl;
+
+  d = 11.7;
+  cout << "Value of d : " << d << endl;
+  cout << "Value of d reference : " << s << endl;
+
+  s += 1;
+  cout << "Value of d : " << d << endl;
+  cout << "Value of d reference : " << s << endl;
+}
+
+void testPoint() {
+  int foo = 10;
+  int* ip;
+  ip = &foo;
+
+  cout << "Value of var variable: ";
+  cout << foo << endl;
+
+  // ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´æ´¢ï¿½Äµï¿½Ö·
+  cout << "Address stored in ip variable: ";
+  cout << ip << endl;
+
+  // ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ðµï¿½Ö·ï¿½ï¿½Öµ
+  cout << "Value of *ip variable: ";
+  cout << *ip << endl;
+}
+
+void testAddr() {
+  int var1;
+  char var2[10];
+  cout << "var1 address:" << &var1 << endl;
+  cout << "var2 address:" << &var2 << endl;
+}
+
+void testString() {
+  string str1 = "Hello";
+  string str2 = "World";
+  string str3;
+  int len;
+
+  // ï¿½ï¿½ï¿½ï¿½ str1 ï¿½ï¿½ str3
+  str3 = str1;
+  cout << "str3 : " << str3 << endl;
+
+  // ï¿½ï¿½ï¿½ï¿½ str1 ï¿½ï¿½ str2
+  str3 = str1 + str2;
+  cout << "str1 + str2 : " << str3 << endl;
+
+  // ï¿½ï¿½ï¿½Óºï¿½str3 ï¿½ï¿½ï¿½Ü³ï¿½ï¿½ï¿½
+  len = str3.size();
+  cout << "str3.size() :  " << len << endl;
+}
+
+void testCharArr() {
+  char greeting1[6] = {'H', 'e', 'l', 'l', 'o', '\0'};
+  char greeting2[] = "World";
+
+  cout << "Greeting message: " << endl;
+  cout << greeting1 << endl;
+  cout << greeting2 << endl;
+}
+
+void testArray() {
+  int arr1[5] = {1, 2, 3, 4, 5};
+  int arr2[] = {1, 2, 3, 4, 5, 6};
+
+  for (int i = 0; i < 5; i++) {
+    arr1[i] = i * 10 + i;
+  }
+
+  cout << "Element" << setw(13) << "Value" << endl;
+
+  for (int i = 0; i < 5; i++) {
+    cout << setw(7) << i << setw(13) << arr1[i] << endl;
+  }
+
+  return;
+}
+
+void testLambda() {
+  auto func1 = [](int y) -> int { return y + 10; };
+  function<int(int)> func2 = [](int y) -> int { return y - 10; };
+  int a = 100;
+  int b = func1(a);
+  int c = func2(a);
+
+  cout << "a:" << a << "  b:" << b << endl;
+  cout << "a:" << a << "  c:" << c << endl;
+  return;
+}
+
+void showSize() {
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<bool>::max)();
+  cout << "\t\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<bool>::min)() << endl;
+
+  cout << "char: \t\t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(char);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<char>::max)();
+  cout << "\t\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<char>::min)() << endl;
+
+  cout << "signed char: \t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(signed char);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<signed char>::max)();
+  cout << "\t\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<signed char>::min)() << endl;
+
+  cout << "unsigned char: \t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(unsigned char);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<unsigned char>::max)();
+  cout << "\t\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<unsigned char>::min)() << endl;
+
+  cout << "wchar_t: \t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(wchar_t);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<wchar_t>::max)();
+  cout << "\t\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<wchar_t>::min)() << endl;
+
+  cout << "short: \t\t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(short);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<short>::max)();
+  cout << "\t\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<short>::min)() << endl;
+
+  cout << "int: \t\t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(int);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<int>::max)();
+  cout << "\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<int>::min)() << endl;
+
+  cout << "long int: \t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(long int);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<long int>::max)();
+  cout << "\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<long int>::min)() << endl;
+
+  cout << "unsigned: \t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(unsigned);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<unsigned>::max)();
+  cout << "\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<unsigned>::min)() << endl;
+
+  cout << "long: \t\t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(long);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<long>::max)();
+  cout << "\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<long>::min)() << endl;
+
+  cout << "long long: \t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(long long);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<long long>::max)();
+  cout << "\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<long long>::min)() << endl;
+
+  cout << "unsigned long: \t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(unsigned long);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<unsigned long>::max)();
+  cout << "\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<unsigned long>::min)() << endl;
+
+  cout << "double: \t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(double);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<double>::max)();
+  cout << "\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<double>::min)() << endl;
+
+  cout << "long double: \t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(long double);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<long double>::max)();
+  cout << "\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<long double>::min)() << endl;
+
+  cout << "float: \t\t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(float);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<float>::max)();
+  cout << "\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<float>::min)() << endl;
+
+  cout << "size_t: \t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(size_t);
+  cout << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<size_t>::max)();
+  cout << "\tï¿½ï¿½Ð¡Öµï¿½ï¿½" << (numeric_limits<size_t>::min)() << endl;
+
+  cout << "string: \t"
+       << "ï¿½ï¿½Õ¼ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½" << sizeof(string) << endl;
+  // << "\tï¿½ï¿½ï¿½Öµï¿½ï¿½" << (numeric_limits<string>::max)() << "\tï¿½ï¿½Ð¡Öµï¿½ï¿½" <<
+  // (numeric_limits<string>::min)() << endl;
+
+  cout << "type: \t\t"
+       << "************size**************" << endl;
+  return;
+}
 
 #include <cstring>
 
-	void changeArray(char* arr) {
-		char data[] = "aaaaaa";
-		strcpy_s(arr, 7, data);
-		return;
-	}
+void changeArray(char* arr) {
+  char data[] = "aaaaaa";
+  strcpy_s(arr, 7, data);
+  return;
+}
 
-	void tmp1() {
-		char target0[] = "hehehe";
-		cout << target0 << endl;
+void tmp1() {
+  char target0[] = "hehehe";
+  cout << target0 << endl;
 
-		changeArray(target0);
-		cout << target0 << endl;
-	}
+  changeArray(target0);
+  cout << target0 << endl;
+}
 
+void changeStr(string& s) { s = "bbb"; }
 
-	void changeStr(string& s) {
-		s = "bbb";
-	}
+void tmp2() {
+  string s1 = "aaa";
+  cout << s1 << endl;
 
+  string* sp;
+  sp = &s1;
 
-	void tmp2() {
-		string s1 = "aaa";
-		cout << s1 << endl;
+  changeStr(*sp);
+  cout << s1 << endl;
+}
 
-		string* sp;
-		sp = &s1;
+void tmp3() {
+  int value;
+  cin >> value;
+  cout << value << endl;
+}
 
-		changeStr(*sp);
-		cout << s1 << endl;
+void tmp4A(int& n) {
+  n += 1;
+  cout << typeid(n).name() << endl;
+  cout << n << endl;
+  cout << "---------------------" << endl;
+  cout << typeid(&n).name() << endl;
+  cout << &n << endl;
+}
 
-	}
+void tmp4B(int* n) {
+  *n += 1;
+  cout << typeid(n).name() << endl;
+  cout << n << endl;
+  cout << "---------------------" << endl;
+  cout << typeid(&n).name() << endl;
+  cout << &n << endl;
+}
 
-	void tmp3() {
-		int value;
-		cin >> value;
-		cout << value << endl;
-	}
+void tmp4C(int n) {
+  int* p;
+  p = &n;
+  *p += 1;
 
+  cout << typeid(n).name() << endl;
+  cout << n << endl;
+  cout << "---------------------" << endl;
+  cout << typeid(&n).name() << endl;
+  cout << &n << endl;
+}
 
-	void tmp4A(int& n) {
+void tmp4() {
+  int c = 100;
+  cout << "&c=" << &c << endl;
 
-		n += 1;
-		cout << typeid(n).name() << endl;
-		cout << n << endl;
-		cout << "---------------------" << endl;
-		cout << typeid(&n).name() << endl;
-		cout << &n << endl;
+  cout << "\n" << endl;
 
-	}
+  cout << "----  tmp4A ----------------." << endl;
+  cout << "before c=" << c << endl;
+  tmp4A(c);
+  cout << "after c=" << c << endl;
+  cout << "----  tmp4A DONE." << endl;
 
-	void tmp4B(int* n) {
+  cout << "\n\n";
 
-		*n += 1;
-		cout << typeid(n).name() << endl;
-		cout << n << endl;
-		cout << "---------------------" << endl;
-		cout << typeid(&n).name() << endl;
-		cout << &n << endl;
-	}
+  cout << "----  tmp4B ---------------" << endl;
+  cout << "before c=" << c << endl;
+  tmp4B(&c);
+  cout << "after c=" << c << endl;
+  cout << "----  tmp4B DONE." << endl;
 
+  cout << "\n\n";
 
-	void tmp4C(int n) {
+  cout << "----  tmp4C -----------" << endl;
+  cout << "before c=" << c << endl;
+  tmp4C(c);
+  cout << "after c=" << c << endl;
+}
 
-		int* p;
-		p = &n;
-		*p += 1;
+void tmp5() {
+  int i = 5, &r1 = i;
+  double d = 9.9, &r2 = d;
+  r2 = 3.1415926;
+  r2 = r1;
+  i = static_cast<int>(r2);
+  r1 = static_cast<int>(d);
+  cout << i << endl;
+  cout << r1 << endl;
+  cout << d << endl;
+  cout << r2 << endl;
+}
 
-		cout << typeid(n).name() << endl;
-		cout << n << endl;
-		cout << "---------------------" << endl;
-		cout << typeid(&n).name() << endl;
-		cout << &n << endl;
-	}
+void tmp6() {
+  int i1 = 10;
+  int& r1 = i1;
+  const int& r2 = i1;
 
-	void tmp4() {
-		int c = 100;
-		cout << "&c=" << &c << endl;
+  const int i2 = 100;
+  // int& r2 = i2;
+  const int r3 = i2;
 
-		cout << "\n" << endl;
+  const int* p1;
+  // int* p2;
+  p1 = &i1;
+  // p2 = &i2;
 
-		cout << "----  tmp4A ----------------." << endl;
-		cout << "before c=" << c << endl;
-		tmp4A(c);
-		cout << "after c=" << c << endl;
-		cout << "----  tmp4A DONE." << endl;
+  //*p1 = 3;
+  //*p2 = 3;
+  p1 = &i2;
 
-		cout << "\n\n";
+  int* const p3 = &i1;
+  *p3 = i2;
+  // p3 = &i2;
+}
 
-		cout << "----  tmp4B ---------------" << endl;
-		cout << "before c=" << c << endl;
-		tmp4B(&c);
-		cout << "after c=" << c << endl;
-		cout << "----  tmp4B DONE." << endl;
+void tmp7() {
+  int i = 0;
+  // double* op = &i;
+  // double* ip1 = i;
+  double* ip2 = 0;
+  int* p = &i;
+}
 
-		cout << "\n\n";
-
-
-		cout << "----  tmp4C -----------" << endl;
-		cout << "before c=" << c << endl;
-		tmp4C(c);
-		cout << "after c=" << c << endl;
-
-
-
-	}
-
-
-	void tmp5() {
-		int i = 5, & r1 = i;  double d = 9.9, & r2 = d;
-		r2 = 3.1415926;
-		r2 = r1;
-		i = static_cast<int>(r2);
-		r1 = static_cast<int>(d);
-		cout << i << endl;
-		cout << r1 << endl;
-		cout << d << endl;
-		cout << r2 << endl;
-
-	}
-
-	void tmp6() {
-		int i1 = 10;
-		int& r1 = i1;
-		const int& r2 = i1;
-
-		const int i2 = 100;
-		//int& r2 = i2;
-		const int r3 = i2;
-
-		const int* p1;
-		//int* p2;
-		p1 = &i1;
-		//p2 = &i2;
-
-
-		//*p1 = 3;
-		//*p2 = 3;
-		p1 = &i2;
-
-
-		int* const p3 = &i1;
-		*p3 = i2;
-		//p3 = &i2;
-
-
-	}
-
-
-	void tmp7() {
-		int i = 0;
-		//double* op = &i;
-		//double* ip1 = i;
-		double* ip2 = 0;
-		int* p = &i;
-	}
-
-
-
-
-	void tmp8() {
-
-		string codeName{ "NULL" };
+void tmp8() {
+  string codeName{"NULL"};
 
 #ifdef UNICODE
-		codeName = "UNICODE";
-#endif // UNICODE
+  codeName = "UNICODE";
+#endif  // UNICODE
 
 #ifndef UNICODE
-		codeName = "GBK";
-#endif // UNICODE
-
-		string s{ "ÎÒÊÇÖÐ¹úÈË¡£" };
-		char c[1024] = { 0 };
-
-		strcpy_s(c, s.c_str());
-		cout << strlen(c) << endl;
-		cout << c << endl;
-		cout << codeName << endl;
-
-	}
-
-
-	void tmp9() {
-
-		string a = "aaa";
-
-		for (int i = 0; i < 10; i++) {
-			a += "x.";
-		}
-
-		for (int i = 0; i < 10; i++) {
-			a.append("y.");
-		}
-
-
-		stringstream ss{};
-		ss << "hahahah." << "hehehhe";
-		for (int i = 0; i < 10; i++) {
-			ss << ".z";
-		}
-
-		a.append(ss.str());
-
-
-		cout << "rst=[" << a << "]" << endl;
-
-
-	}
-
-	void dealStr1(string input) {
-		using namespace std;
-
-		cout << input << endl;
-	}
-
-	void dealStr2(const string& input) {
-		using namespace std;
-
-		cout << input << endl;
-	}
-
-	void tmp10() {
-
-		string s1 = "abc";
-
-		string s2{ s1 };
-
-		char ch1[] = "i a char string.";
-
-		string s3{ ch1 };
-
-		const string s4{ ch1 };
-
-		dealStr1(s1);
-		dealStr1("bbb");
-
-		dealStr2(s1);
-		dealStr2("bbb");
-
-		cout << " --------- " << endl;
-
-		dealStr1(s2);
-		dealStr1(s3);
-		dealStr1(s4);
-
-
-	}
-
-	enum class Color { R, G, B };
-	void tmp11() {
-
-		Color c{ Color::R };
-		cout << "c:" << (int)c << endl;
-	}
-
-
-
-
-	void tmp12() {
-
-		int a = 100;
-		int b{ move(a) };
-		int* c = &a;
-
-		a += 1;
-
-		cout << a << endl;
-		cout << b << endl;
-		cout << *c << endl;
-
-	}
-
-
-	class Bar13 {
-	public:
-		Bar13(const std::string& m):member(m) {
-			cout << "Bar13_1: [" << m << "] created." << endl;
-		};
-		
-		Bar13(const Bar13& m):member(m.member) {
-			cout << "copy Bar13: [" << m.member << "] created." << endl;
-		};
-
-		Bar13(std::string&& m) : member(std::move(m)) {
-			cout << "Bar13_2: [" << m << "] created." << endl;
-		}
-
-		std::string member;
-	};
-
-
-
-	void tmp13() {
-		string s = "data1";
-
-		Bar13 a{ s };
-		Bar13 b{ "data2" };
-
-		cout << (string{"* - * - * - * - * - "}) << endl;
-
-		cout << "a.member: [" << a.member << "]" << endl;
-		cout << "b.member: [" << b.member << "]" << endl;
-	}
-
-
-
-	class Bar14 {
-	public:
-		Bar14(int m) : member(m) {
-			cout << "Bar14 created [" << m << "]" << endl;
-		}
-		
-		//¿½±´¹¹Ôìº¯Êý
-		Bar14(const Bar14& b) : member(b.member) {
-			cout << "Bar14 copied [" << b.member << "]" << endl;
-		};
-
-		//ÒÆ¶¯¹¹Ôìº¯Êý
-		Bar14(Bar14&& b) noexcept : member(b.member) {
-			b.member = -1;
-			cout << "Bar14 moved [" << this->member << "]" << endl;
-		};
-
-
-		int member;
-	};
-
-	class Foo14 {
-	public:
-		Bar14 member;
-		// Copy member.
-		Foo14(const Bar14& m) : member(m) {
-			cout << "Foo14_1 created. [" << m.member << "]" << endl;
-		}
-		
-		Foo14(const Foo14& m) : member(m.member) {
-			cout << "copy Foo14 created. [" << m.member.member << "]" << endl;
-		}
-
-		// Move member.
-		Foo14(Bar14&& m) : member(std::move(m)) {
-			cout << "Foo14_2 created. [" << member.member << "] input para=" << m.member << endl;
-		}
-	};
-
-	void tmp14() {
-
-		//Bar13 a{ "aa" };
-		//Bar13 b{ "bb" };
-
-		//cout << "a.member: [" << a.member << "]" << endl;
-		//cout << "b.member: [" << b.member << "]" << endl;
-
-
-		Bar14 a{ 1 };
-		Foo14 c{ a };
-		
-		cout << " --------------------------- " << endl;
-		
-		Foo14 d{ Bar14{ 2 } };
-
-		cout << " ----------------- " << endl;
-
-		cout << "c.member.member: [" << c.member.member << "]" << endl;
-		cout << "d.member.member: [" << d.member.member << "]" << endl;
-
-	}
-
-	void tmp15() {
-
-		for (auto i : vector<int>{ 1,2,3,4,5 }) {
-			cout << "i:" << i << endl;
-		}
-	}
-
+  codeName = "GBK";
+#endif  // UNICODE
+
+  string s{"ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½Ë¡ï¿½"};
+  char c[1024] = {0};
+
+  strcpy_s(c, s.c_str());
+  cout << strlen(c) << endl;
+  cout << c << endl;
+  cout << codeName << endl;
 }
 
-void tmpTest1() {
-	tmp15();
+void tmp9() {
+  string a = "aaa";
+
+  for (int i = 0; i < 10; i++) {
+    a += "x.";
+  }
+
+  for (int i = 0; i < 10; i++) {
+    a.append("y.");
+  }
+
+  stringstream ss{};
+  ss << "hahahah."
+     << "hehehhe";
+  for (int i = 0; i < 10; i++) {
+    ss << ".z";
+  }
+
+  a.append(ss.str());
+
+  cout << "rst=[" << a << "]" << endl;
 }
 
+void dealStr1(string input) {
+  using namespace std;
 
+  cout << input << endl;
+}
 
+void dealStr2(const string& input) {
+  using namespace std;
 
+  cout << input << endl;
+}
 
+void tmp10() {
+  string s1 = "abc";
+
+  string s2{s1};
+
+  char ch1[] = "i a char string.";
+
+  string s3{ch1};
+
+  const string s4{ch1};
+
+  dealStr1(s1);
+  dealStr1("bbb");
+
+  dealStr2(s1);
+  dealStr2("bbb");
+
+  cout << " --------- " << endl;
+
+  dealStr1(s2);
+  dealStr1(s3);
+  dealStr1(s4);
+}
+
+enum class Color { R, G, B };
+void tmp11() {
+  Color c{Color::R};
+  cout << "c:" << (int)c << endl;
+}
+
+void tmp12() {
+  int a = 100;
+  int b{move(a)};
+  int* c = &a;
+
+  a += 1;
+
+  cout << a << endl;
+  cout << b << endl;
+  cout << *c << endl;
+}
+
+class Bar13 {
+ public:
+  Bar13(const std::string& m) : member(m) {
+    cout << "Bar13_1: [" << m << "] created." << endl;
+  };
+
+  Bar13(const Bar13& m) : member(m.member) {
+    cout << "copy Bar13: [" << m.member << "] created." << endl;
+  };
+
+  Bar13(std::string&& m) : member(std::move(m)) {
+    cout << "Bar13_2: [" << m << "] created." << endl;
+  }
+
+  std::string member;
+};
+
+void tmp13() {
+  string s = "data1";
+
+  Bar13 a{s};
+  Bar13 b{"data2"};
+
+  cout << (string{"* - * - * - * - * - "}) << endl;
+
+  cout << "a.member: [" << a.member << "]" << endl;
+  cout << "b.member: [" << b.member << "]" << endl;
+}
+
+class Bar14 {
+ public:
+  Bar14(int m) : member(m) { cout << "Bar14 created [" << m << "]" << endl; }
+
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
+  Bar14(const Bar14& b) : member(b.member) {
+    cout << "Bar14 copied [" << b.member << "]" << endl;
+  };
+
+  //ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
+  Bar14(Bar14&& b) noexcept : member(b.member) {
+    b.member = -1;
+    cout << "Bar14 moved [" << this->member << "]" << endl;
+  };
+
+  int member;
+};
+
+class Foo14 {
+ public:
+  Bar14 member;
+  // Copy member.
+  Foo14(const Bar14& m) : member(m) {
+    cout << "Foo14_1 created. [" << m.member << "]" << endl;
+  }
+
+  Foo14(const Foo14& m) : member(m.member) {
+    cout << "copy Foo14 created. [" << m.member.member << "]" << endl;
+  }
+
+  // Move member.
+  Foo14(Bar14&& m) : member(std::move(m)) {
+    cout << "Foo14_2 created. [" << member.member << "] input para=" << m.member
+         << endl;
+  }
+};
+
+void tmp14() {
+  // Bar13 a{ "aa" };
+  // Bar13 b{ "bb" };
+
+  // cout << "a.member: [" << a.member << "]" << endl;
+  // cout << "b.member: [" << b.member << "]" << endl;
+
+  Bar14 a{1};
+  Foo14 c{a};
+
+  cout << " --------------------------- " << endl;
+
+  Foo14 d{Bar14{2}};
+
+  cout << " ----------------- " << endl;
+
+  cout << "c.member.member: [" << c.member.member << "]" << endl;
+  cout << "d.member.member: [" << d.member.member << "]" << endl;
+}
+
+void tmp15() {
+  for (auto i : vector<int>{1, 2, 3, 4, 5}) {
+    cout << "i:" << i << endl;
+  }
+}
+
+}  // namespace
+
+void tmpTest1() { tmp15(); }

@@ -450,7 +450,7 @@ void calcStep(int poker[10], int count) {
     i++;
   }
 
-  //ÎåÁ¬
+  //ï¿½ï¿½ï¿½ï¿½
   if (i + 5 <= 10 && poker[i] > 0 && poker[i + 1] > 0 && poker[i + 2] > 0 &&
       poker[i + 3] > 0 && poker[i + 4] > 0) {
     for (int j = 0; j < 5; j++) {
@@ -462,7 +462,7 @@ void calcStep(int poker[10], int count) {
     }
   }
 
-  //ÈýË«
+  //ï¿½ï¿½Ë«
   if (i + 3 <= 10 && poker[i] > 1 && poker[i + 1] > 1 && poker[i + 2] > 1) {
     for (int j = 0; j < 3; j++) {
       poker[i + j] -= 2;
@@ -473,14 +473,14 @@ void calcStep(int poker[10], int count) {
     }
   }
 
-  //¶Ô×Ó
+  //ï¿½ï¿½ï¿½ï¿½
   if (poker[i] > 1) {
     poker[i] -= 2;
     calcStep(poker, count + 1);
     poker[i] += 2;
   }
 
-  //µ¥×Ó
+  //ï¿½ï¿½ï¿½ï¿½
   if (poker[i] > 0) {
     poker[i] -= 1;
     calcStep(poker, count + 1);
@@ -779,11 +779,6 @@ void tmp11() {
   cout << "====== 4 ======" << endl;
   cout << "c1:" << (c1 == nullptr) << endl;
   cout << "c2:" << (c2 == nullptr) << endl;
-
-
-
-
-
 }
 
 }  // namespace tmp_test4

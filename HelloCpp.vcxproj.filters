@@ -51,7 +51,13 @@
     <ClCompile Include="src\othersCacl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TmpTest5.cpp">
+    <ClCompile Include="src\TmpTest5a.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TmpTest6.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TmpTest7.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

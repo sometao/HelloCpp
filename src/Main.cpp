@@ -12,6 +12,8 @@ extern void tmpTest3();
 extern void tmpTest4();
 extern int DQL_main();
 extern void tmpTest5();
+extern void tmpTest6();
+extern void tmpTest7();
 
 int main(int argc, char* argv[]) {
 
@@ -21,7 +23,8 @@ int main(int argc, char* argv[]) {
 	//threadTest();
 	//tmpTest2();
 	//EasyWayTester::test();
-	tmpTest5();
+	//tmpTest5();
+	tmpTest7();
 }
 
 

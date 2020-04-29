@@ -31,7 +31,9 @@
     <ClCompile Include="src\TmpTest2.cpp" />
     <ClCompile Include="src\TmpTest3.cpp" />
     <ClCompile Include="src\TmpTest4.cpp" />
-    <ClCompile Include="src\TmpTest5.cpp" />
+    <ClCompile Include="src\TmpTest5a.cpp" />
+    <ClCompile Include="src\TmpTest6.cpp" />
+    <ClCompile Include="src\TmpTest7.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\EasyWay.h" />
