@@ -1,18 +1,9 @@
-#include <cassert>
-#include <atomic>
-#include <fstream>
-#include <functional>
-#include <iostream>
-#include <list>
-#include <memory>
-#include <regex>
-#include <sstream>
+
 #include <string>
 #include <cstring>
 #include <typeinfo>
-#include <unordered_map>
 #include <vector>
-#include <chrono>
+#include <iostream>
 #include "seeker/common.h"
 
 
@@ -176,6 +167,12 @@ void tmp02() {
 
   cout << "done" << endl;
 
+
+}
+
+void tmp03() {
+ //class A中有个成员方法foo，foo内部有个static变量s；
+ //class A的两个不同对象，a1和a2中的foo方法内部的两个s是同一个吗？
 
 }
 
