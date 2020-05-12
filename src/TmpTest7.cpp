@@ -1,4 +1,6 @@
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
 #include <string>
 #include <cstring>
 #include <typeinfo>
@@ -35,10 +37,10 @@ void readData(uint8_t* buf, T& num) {
 
 template <typename T>
 void testWriteAndRead(vector<T> vec, uint8_t* data, size_t len) {
-
-  cout << "-------------------- "<< typeid(T).name() << " test ---------------------------" << endl;
+  cout << "-------------------- " << typeid(T).name() << " test ---------------------------"
+       << endl;
   memset(data, 0, len);
-  uint8_t width =sizeof(T);
+  uint8_t width = sizeof(T);
 
   cout << "width: " << (int)width << endl;
   assert(len > width * vec.size());
@@ -52,10 +54,9 @@ void testWriteAndRead(vector<T> vec, uint8_t* data, size_t len) {
   cout << "--------------------" << endl;
 
   for (int i = 0; i < len; i++) {
-    if(i % 8 == 0) {
+    if (i % 8 == 0) {
       cout << endl;
-      cout << "["<< i << "\t]\t";
-
+      cout << "[" << i << "\t]\t";
     }
     cout << (int)data[i] << " ";
   }
@@ -72,7 +73,6 @@ void testWriteAndRead(vector<T> vec, uint8_t* data, size_t len) {
 
 
   cout << "\n\n" << endl;
-
 }
 
 
@@ -95,35 +95,26 @@ void tmp01() {
   testWriteAndRead(vec3, data, 128);
 
   testWriteAndRead(vec4, data, 128);
-
 };
 
 
 
-class TMP2A{
-public :
+class TMP2A {
+ public:
   const string name;
-  TMP2A(const string& n): name(n) {
-    cout << "TMP2A created with [" << name << "]" << endl;
-  }
-  void say() {
-    cout << "I am TMP2A with [" << name << "]" << endl;
-  }
+  TMP2A(const string& n) : name(n) { cout << "TMP2A created with [" << name << "]" << endl; }
+  void say() { cout << "I am TMP2A with [" << name << "]" << endl; }
 };
 
 
-class TMP2B{
-public :
+class TMP2B {
+ public:
   const string alias;
-  TMP2B(const string& n): alias(n) {
-    cout << "TMP2B created with [" << alias << "]" << endl;
-  }
-  void say() {
-    cout << "I am TMP2B with [" << alias << "]" << endl;
-  }
+  TMP2B(const string& n) : alias(n) { cout << "TMP2B created with [" << alias << "]" << endl; }
+  void say() { cout << "I am TMP2B with [" << alias << "]" << endl; }
 };
 
-template<typename T>
+template <typename T>
 void foo(T t) {
   cout << "1. -----" << endl;
   static T x{"Inner--" + std::to_string(seeker::Time::currentTime())};
@@ -136,10 +127,7 @@ void foo(T t) {
 
 
 
-
-
 void tmp02() {
-
   TMP2A a{"AAA"};
   foo(a);
   cout << "++++++++++++++++++++++++++++++++++++++\n\n" << endl;
@@ -148,7 +136,7 @@ void tmp02() {
   foo(b);
   cout << "++++++++++++++++++++++++++++++++++++++\n\n" << endl;
 
-  
+
   TMP2A c{"CCC"};
   foo(c);
   foo(c);
@@ -163,22 +151,60 @@ void tmp02() {
 
 
 
-
-
   cout << "done" << endl;
-
-
 }
 
 void tmp03() {
- //class A中有个成员方法foo，foo内部有个static变量s；
- //class A的两个不同对象，a1和a2中的foo方法内部的两个s是同一个吗？
+  // class A中有个成员方法foo，foo内部有个static变量s；
+  // class A的两个不同对象，a1和a2中的foo方法内部的两个s是同一个吗？
+}
+
+void tmp04() {
+  enum { SIZE = 4 };
+
+  int a[SIZE] = {1, 2, 3, 4};
+  FILE* f1 = fopen("file1.bin", "wb");
+  assert(f1);
+  int r1 = fwrite(a, sizeof a[0], SIZE, f1);
+  printf("wrote %d elements out of %d requested\n", r1, SIZE);
+
+  a[0] = 10;
+  r1 = fwrite(a, sizeof a[0], SIZE, f1);
+  a[0] = 20;
+  r1 = fwrite(a, sizeof a[0], SIZE, f1);
+  a[0] = 30;
+  r1 = fwrite(a, sizeof a[0], SIZE, f1);
+  fclose(f1);
+
+  int b[SIZE * 4];
+  FILE* f2 = fopen("file1.bin", "rb");
+  int r2 = fread(b, sizeof b[0], SIZE * 4, f2);
+  fclose(f2);
+  printf("read back: ");
+  for (int i = 0; i < r2; i++) printf("%d ", b[i]);
+}
+
+void tmp05() {
+
+  uint8_t bytes[] = {1, 0x04};
+  uint16_t value = (uint16_t)bytes[0] << 8 | bytes[1];
+
+  cout << value << endl;
+
+
 
 }
 
+
+
 }  // namespace tmp_test7
+
+
+
+
+
 
 void tmpTest7() {
   using namespace tmp_test7;
-  tmp02();
+  tmp05();
 }
