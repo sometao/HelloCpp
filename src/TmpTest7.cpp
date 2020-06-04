@@ -279,7 +279,7 @@ void tmp10() {
   foo.addAttr(3, vec3);
 
 
-  //vec1[0] = "999";
+  // vec1[0] = "999";
 
   cout << "vec1 empty = " << vec1.empty() << endl;
   for (auto& v : vec1) {
@@ -296,11 +296,9 @@ void tmp10() {
     }
     cout << endl;
   }
-
 }
 
 void tmp11() {
-
   vector<string> vec1{"a1", "b", "c"};
 
   std::unordered_map<uint16_t, vector<string>> map;
@@ -322,7 +320,6 @@ void tmp11() {
     cout << v << " ";
   }
   cout << endl;
-
 }
 
 
@@ -333,21 +330,53 @@ void tmp12() {
   vector<uint8_t> vec(s.length());
 
   auto data = s.c_str();
-  for(int i=0; i<s.length(); i++) {
+  for (int i = 0; i < s.length(); i++) {
     vec.at(i) = data[i];
   }
 
 
   string s1{};
-  for(int i =0; i < vec.size(); i++) {
+  for (int i = 0; i < vec.size(); i++) {
     s1.push_back(vec.at(i));
   }
 
   cout << "s1:" << s1 << endl;
-
-
 }
 
+
+char value2Char(uint8_t value) {
+  char result = '\0';
+  if (value >= 0 && value <= 9) {
+    result = (char)(value + 48);
+  } else if (value >= 10 && value <= 15) {
+    result =
+        (char)(value - 10 + 97);  //减去10则找出其在16进制的偏移量，65为ascii的‘A‘的字符编码值
+  } else {
+    ;
+  }
+  return result;
+}
+
+
+std::string bytes2HexString(uint8_t* data, size_t len) {
+  std::string rst{};
+  uint8_t high;
+  uint8_t low;
+  for (size_t i = 0; i < len; i++) {
+    high = data[i] >> 4;
+    low = data[i] & 0x0F;
+    rst += value2Char(high);
+    rst += value2Char(low);
+  }
+  return rst;
+}
+
+void tmp13() {
+  uint8_t data[] = {0xAB, 0xCD, 0x1A, 0x2B, 0x3C};
+  auto rst = bytes2HexString(data, 5);
+
+  std::cout << "rst:" << rst << std::endl;
+}
 
 
 }  // namespace tmp_test7
@@ -356,5 +385,5 @@ void tmp12() {
 
 void tmpTest7() {
   using namespace tmp_test7;
-  tmp12();
+  tmp13();
 }
