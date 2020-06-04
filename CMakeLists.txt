@@ -72,7 +72,7 @@ message(" ===================== SETTING ======================")
 
 message(" ==================== LIBRARY PATH =====================")
 message(CMAKE_THREAD_LIBS_INIT		  =  ${CMAKE_THREAD_LIBS_INIT})
-message(CMAKE_DL_LIBS	         	  =  ${CMAKE_DL_LIBS})
+message(CMAKE_DL_LIBS	         	    =  ${CMAKE_DL_LIBS})
 
 
 message(" ==================== INCLUDE PATH =====================")
@@ -84,7 +84,7 @@ message(" ==================== INCLUDE PATH =====================")
 add_executable (${PROJECT_NAME}   
   "src/Main.cpp" 
   "src/TmpTest7.cpp" 
-)
+ )
 
 
 target_include_directories( ${PROJECT_NAME}  
@@ -100,7 +100,12 @@ target_link_libraries( ${PROJECT_NAME}
 	PRIVATE 
 		${CMAKE_THREAD_LIBS_INIT}
 		${CMAKE_DL_LIBS}
+
 )
+
+
+
+add_subdirectory("modules/helloHash")
 
 
 

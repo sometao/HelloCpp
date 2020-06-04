@@ -5,6 +5,7 @@
 #include <cstring>
 #include <typeinfo>
 #include <vector>
+#include <unordered_map>
 #include <iostream>
 #include "seeker/common.h"
 
@@ -185,12 +186,164 @@ void tmp04() {
 }
 
 void tmp05() {
-
   uint8_t bytes[] = {1, 0x04};
   uint16_t value = (uint16_t)bytes[0] << 8 | bytes[1];
-
   cout << value << endl;
+}
 
+
+void tmp06() {
+  string s = "abcdefg";
+  auto c = s.at(s.size() - 1);
+  string s1 = s.substr(0, s.size() - 1);
+
+
+  cout << "s:\t" << s << endl;
+  cout << "c:\t" << c << endl;
+  cout << "s1:\t" << s1 << endl;
+}
+
+void tmp07() {
+  std::vector<uint8_t> vec;
+
+  cout << "vec size = " << vec.size() << endl;
+  cout << "vec capacity = " << vec.capacity() << endl;
+
+  vec.push_back(1);
+  vec.push_back(2);
+  vec.push_back(3);
+  cout << "vec size = " << vec.size() << endl;
+  cout << "vec capacity = " << vec.capacity() << endl;
+
+  for (auto& v : vec) {
+    cout << (int)v << ", ";
+  }
+  cout << endl;
+
+  vec[0] = 9;
+  vec.at(1) = 8;
+  *(vec.data() + 2) = 10;
+
+  for (auto& v : vec) {
+    cout << (int)v << ", ";
+  }
+  cout << endl;
+}
+
+
+class Foo8 {
+ public:
+  std::string s;
+  std::vector<int> vec = std::vector<int>(12);
+  Foo8() {}
+};
+
+void tmp08() {
+  Foo8 f{};
+  cout << "s= [" << f.s << "]" << endl;
+  cout << "vec= [" << f.vec.size() << "]" << endl;
+}
+
+enum class FooType { A = 5, B = 3 };
+
+void tmp09() {
+  FooType t1 = FooType::B;
+  uint16_t x = (uint16_t)t1;
+
+  cout << "x=" << (int)x << endl;
+}
+
+
+class Foo10 {
+ public:
+  std::unordered_map<uint16_t, vector<string>> attributes;
+
+  void addAttr(uint16_t attrType, vector<string>& value) {
+    uint16_t typeCode = (uint16_t)attrType;
+    if (attributes.find(typeCode) == attributes.end()) {
+      attributes.emplace(typeCode, std::move(value));
+    }
+  }
+};
+
+void tmp10() {
+  vector<string> vec1{"a1", "b", "c"};
+  vector<string> vec2{"a2", "b", "c"};
+  vector<string> vec3{"a3", "b", "c"};
+
+
+  Foo10 foo{};
+
+  foo.addAttr(1, vec1);
+  foo.addAttr(2, vec2);
+  foo.addAttr(3, vec3);
+
+
+  //vec1[0] = "999";
+
+  cout << "vec1 empty = " << vec1.empty() << endl;
+  for (auto& v : vec1) {
+    cout << v << " ";
+  }
+  cout << endl;
+
+  for (auto& p : foo.attributes) {
+    auto key = p.first;
+    auto value = p.second;
+    cout << key << ": ";
+    for (auto& v : value) {
+      cout << v << " ";
+    }
+    cout << endl;
+  }
+
+}
+
+void tmp11() {
+
+  vector<string> vec1{"a1", "b", "c"};
+
+  std::unordered_map<uint16_t, vector<string>> map;
+
+  map.emplace(1, std::move(vec1));
+
+  for (auto& p : map) {
+    auto key = p.first;
+    auto value = p.second;
+    cout << key << ": ";
+    for (auto& v : value) {
+      cout << v << " ";
+    }
+    cout << endl;
+  }
+
+  cout << "vec1 empty = " << vec1.empty() << endl;
+  for (auto& v : vec1) {
+    cout << v << " ";
+  }
+  cout << endl;
+
+}
+
+
+void tmp12() {
+  string s = "hello, world.";
+  cout << "s:" << s << endl;
+
+  vector<uint8_t> vec(s.length());
+
+  auto data = s.c_str();
+  for(int i=0; i<s.length(); i++) {
+    vec.at(i) = data[i];
+  }
+
+
+  string s1{};
+  for(int i =0; i < vec.size(); i++) {
+    s1.push_back(vec.at(i));
+  }
+
+  cout << "s1:" << s1 << endl;
 
 
 }
@@ -201,10 +354,7 @@ void tmp05() {
 
 
 
-
-
-
 void tmpTest7() {
   using namespace tmp_test7;
-  tmp05();
+  tmp12();
 }
