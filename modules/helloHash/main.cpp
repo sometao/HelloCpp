@@ -1,11 +1,27 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include "md5.h"
 #include "sha1.h"
 #include "hmac.h"
+#include "crc32.h"
 
 
 
+
+//// convert from hex to binary
+std::vector<unsigned char> hex2bin(const std::string& hex)
+{
+  std::vector<unsigned char> result;
+  for (size_t i = 0; i < hex.size(); i++)
+  {
+    unsigned char high = hex[i] >= 'a' ? hex[i] - 'a' + 10 : hex[i] - '0';
+    i++;
+    unsigned char low  = hex[i] >= 'a' ? hex[i] - 'a' + 10 : hex[i] - '0';
+    result.push_back(high * 16 + low);
+  }
+  return result;
+}
 
 
 void md5Test() {
@@ -100,14 +116,26 @@ void hmacSha1Test3() {
 }
 
 
+void crc32Test() {
+  CRC32 hasher;
+
+  std::string target{"hello, world."};
+
+  std::string rst = hasher(target);
+
+  std::cout << target << std::endl;
+  std::cout << rst << std::endl;
+}
+
 
 
 int main() {
 
 
   //sha1Test();
-  hmacSha1Test1();
-  hmacSha1Test2();
-  hmacSha1Test3();
+  //hmacSha1Test1();
+  //hmacSha1Test2();
+  //hmacSha1Test3();
+  crc32Test();
   return 0;
 }

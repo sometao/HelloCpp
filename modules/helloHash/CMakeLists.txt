@@ -22,6 +22,7 @@ add_executable( helloHash
 	"main.cpp"
 	"src/md5.cpp"
 	"src/sha1.cpp"
+	"src/crc32.cpp"
 )
 
 
