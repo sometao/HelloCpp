@@ -378,6 +378,29 @@ void tmp13() {
   std::cout << "rst:" << rst << std::endl;
 }
 
+void tmp14() {
+  std::string s = "1234567";
+  auto data = s.c_str();
+
+  std::cout << "s len=" << s.size() << std::endl;
+  std::cout << "data len=" << sizeof(data) << std::endl;
+
+
+  std::string s1{"AAA"};
+  std::cout << "s1=" << s1 << std::endl;
+  s1 += data;
+  std::cout << "s1=" << s1 << std::endl;
+
+  std::vector<uint8_t> vec;
+  for(int i=0; i < 5; i++){
+    vec.push_back( 'a' + i );
+  }
+  vec.push_back('\0');
+  s1 += (char*) vec.data();
+  std::cout << "s1=" << s1 << std::endl;
+
+}
+
 
 }  // namespace tmp_test7
 
@@ -385,5 +408,5 @@ void tmp13() {
 
 void tmpTest7() {
   using namespace tmp_test7;
-  tmp13();
+  tmp14();
 }

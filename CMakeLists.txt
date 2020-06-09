@@ -83,8 +83,8 @@ message(" ==================== INCLUDE PATH =====================")
 # Add source to this project's executable.
 add_executable (${PROJECT_NAME}   
   "src/Main.cpp" 
-  "src/TmpTest7.cpp" 
-)
+ "src/TmpTest8.cpp"
+ )
 
 
 target_include_directories( ${PROJECT_NAME}  
