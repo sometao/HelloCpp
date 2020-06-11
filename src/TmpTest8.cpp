@@ -62,11 +62,42 @@ void tmp01() {
   cout << "done." << endl;
 }
 
+void tmp02() {
+
+  char cc[] = "abcde";
+  cout << "cc = " << (int32_t) cc << endl;
+  cout << "cc = " << (int32_t) (&cc) << endl;
+
+}
+
+class Foo03 {
+public:
+  Foo03() {
+    std::cout << "construct Foo03 " << std::endl;
+    throw std::exception("created failed");
+  }
+
+  ~Foo03() {
+    std::cout << "deconstruct Foo03 " << std::endl;
+  }
+};
+
+void tmp03(){
+
+  std::cout << "begin." << std::endl;
+  try {
+    Foo03 a;
+  } catch(std::exception ex) {
+    std::cout << ex.what() << std::endl;
+  }
+  std::cout << "end." << std::endl;
+
+}
 
 
 }  // namespace tmp_test8
 
 void tmpTest8() {
   using namespace tmp_test8;
-  tmp01();
+  tmp03();
 }
