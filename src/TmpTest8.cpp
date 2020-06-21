@@ -10,6 +10,7 @@
 #include <fstream>
 #include "seeker/common.h"
 
+#include <iomanip>
 
 namespace tmp_test8 {
 using std::cout;
@@ -94,10 +95,59 @@ void tmp03(){
 
 }
 
+class Foo04 {
+public:
+  int value;
+  void setValue(const int& x) {value = x;}
+
+  Foo04& operator+(const Foo04& o) {
+    value += o.value;
+    return *this;
+  }
+
+  Foo04(const int& v): value(v) {
+    std::cout << "construct Foo04: " << v << std::endl;
+  }
+
+  ~Foo04() {
+    std::cout << "deconstruct Foo04: " << value << std::endl;
+  }
+};
+
+
+void tmp04() {
+  std::cout << "--------- 1 ------------" << std::endl;
+  Foo04(3);
+  std::cout << "--------- 2 ------------" << std::endl;
+  Foo04(3).setValue(4);
+  std::cout << "--------- 3 ------------" << std::endl;
+  Foo04(5) + Foo04(7) = Foo04(2);
+  std::cout << "--------- 4 ------------" << std::endl;
+}
+
+
+void tmp05() {
+  using seeker::ByteArray;
+
+  uint8_t data[] = {0,0,0,0,0,0};
+
+  uint32_t a = 0x12345678;
+
+  ByteArray::writeData(data, a, false);
+
+  std::cout << std::hex;
+
+  for(size_t i=0; i < 6; i ++) {
+    std::cout << (int)data[i] << " ";
+  }
+
+  cout << std::endl << "DONE." << endl;
+
+}
 
 }  // namespace tmp_test8
 
 void tmpTest8() {
   using namespace tmp_test8;
-  tmp03();
+  tmp05();
 }

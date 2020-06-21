@@ -88,27 +88,37 @@ class String {
 
 
 class ByteArray {
-
+public:
   template <typename T>
-  static void writeData(uint8_t* buf, T num) {
-    int len(sizeof(T));
-    for (size_t i = 0; i < len; ++i) {
-      buf[i] = (uint8_t)(num >> (i * 8));
+  static void writeData(uint8_t* buf, T num, bool littleEndian = true) {
+    size_t len(sizeof(T));
+    if (littleEndian) {
+      for (size_t i = 0; i < len; ++i) {
+        buf[i] = (uint8_t)((num >> (i * 8)) & 0xFF);
+      }
+    } else { // not tested.
+      for (size_t i = 0; i < len; ++i) {
+        buf[i] = (uint8_t)((num >> ((len - i - 1) * 8)) & 0xFF);
+      }
     }
   }
 
   template <typename T>
-  static void readData(uint8_t* buf, T& num) {
+  static void readData(uint8_t* buf, T& num, bool littleEndian = true) {
     uint8_t len(sizeof(T));
-    static uint8_t byMask(0xFF);
     num = 0;
-
-    for (size_t i = 0; i < len; ++i) {
-      num <<= 8;
-      num |= (T)(buf[len - 1 - i] & byMask);
+    if (littleEndian) {
+      for (size_t i = 0; i < len; ++i) {
+        num <<= 8;
+        num |= (T)(buf[len - 1 - i] & 0xFF);
+      }
+    } else { // not tested.
+      for (size_t i = 0; i < len; ++i)  {
+        num <<= 8;
+        num |= (T)(buf[i] & 0xFF);
+      }
     }
   }
-
 
 };
 
